@@ -16,8 +16,13 @@ export function hostnameOf(url) {
 }
 
 export function isValidHttpUrl(raw) {
+  const value = (raw || '').trim()
+  if (!value) return false
   try {
-    const url = new URL(normalizeUrl(raw))
+    if (/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(value) && !/^https?:\/\//i.test(value)) {
+      return false
+    }
+    const url = new URL(normalizeUrl(value))
     return url.protocol === 'http:' || url.protocol === 'https:'
   } catch {
     return false
