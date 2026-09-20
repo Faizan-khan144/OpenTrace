@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+﻿import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { SlidersHorizontal, X } from 'lucide-react'
 import { resources, getByCategory } from '../data/resources/index.js'
@@ -48,6 +48,12 @@ export default function ExplorePage() {
   if (prevUrlQuery !== urlQuery) {
     setPrevUrlQuery(urlQuery)
     setQuery(urlQuery)
+    setVisibleCount(PAGE_SIZE)
+  }
+
+  const changeFilters = (updater) => {
+    setFilters(updater)
+    setVisibleCount(PAGE_SIZE)
   }
 
   const counts = useMemo(
@@ -107,10 +113,6 @@ export default function ExplorePage() {
 
   const hasFilters = filtersActive(filters)
 
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE)
-  }, [query, sort, filters])
-
   const shown = results.slice(0, visibleCount)
 
   return (
@@ -134,7 +136,7 @@ export default function ExplorePage() {
       <div className="flex flex-col gap-6 lg:flex-row">
         <aside className="hidden w-72 shrink-0 lg:block">
           <div className="sticky top-20">
-            <FiltersPanel filters={filters} setFilters={setFilters} counts={counts} />
+            <FiltersPanel filters={filters} setFilters={changeFilters} counts={counts} />
           </div>
         </aside>
 
@@ -154,7 +156,10 @@ export default function ExplorePage() {
               </button>
               <select
                 value={sort}
-                onChange={(e) => setSort(e.target.value)}
+                onChange={(e) => {
+                  setSort(e.target.value)
+                  setVisibleCount(PAGE_SIZE)
+                }}
                 className="input-base w-auto py-1.5 font-mono text-[11px] uppercase tracking-wider"
                 aria-label="Sort results"
               >
@@ -180,7 +185,10 @@ export default function ExplorePage() {
 
           {query.trim() && results.length > 0 && (
             <button
-              onClick={() => setQuery('')}
+              onClick={() => {
+                setQuery('')
+                setVisibleCount(PAGE_SIZE)
+              }}
               className="mt-6 inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-faint transition-colors hover:text-accent-soft"
             >
               <X size={12} /> Clear search
@@ -195,7 +203,7 @@ export default function ExplorePage() {
           <div className="absolute right-0 top-0 h-full w-full max-w-sm overflow-y-auto border-l border-line bg-canvas p-5 animate-fade-in">
             <FiltersPanel
               filters={filters}
-              setFilters={setFilters}
+              setFilters={changeFilters}
               counts={counts}
               onClose={() => setDrawerOpen(false)}
             />
