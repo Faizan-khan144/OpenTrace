@@ -11,7 +11,7 @@ import FiltersPanel from '../components/FiltersPanel.jsx'
 import ResourceGrid from '../components/ResourceGrid.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import useDocumentTitle from '../hooks/useDocumentTitle.js'
-import useLocalStorage from '../hooks/useLocalStorage.js'
+import { useLocalStorage } from '../hooks/useLocalStorage.js'
 
 const SORT_OPTIONS = [
   { id: 'relevance', label: 'Top match' },
