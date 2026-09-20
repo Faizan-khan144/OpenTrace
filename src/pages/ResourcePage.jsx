@@ -4,11 +4,13 @@ import {
   ArrowLeft,
   BarChart3,
   Check,
+  Clipboard,
   ExternalLink,
   FolderPlus,
   Globe,
   Plus,
   Save,
+  Share2,
   ShieldAlert,
   Star,
 } from 'lucide-react'
@@ -146,6 +148,46 @@ export default function ResourcePage() {
     notify('Report submitted locally', 'success')
   }
 
+  const copyToClipboard = async (text) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text)
+      return
+    }
+    const textarea = document.createElement('textarea')
+    textarea.value = text
+    textarea.style.position = 'fixed'
+    textarea.style.opacity = '0'
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+  }
+
+  const copyLink = async () => {
+    try {
+      await copyToClipboard(window.location.href)
+      notify('Link copied to clipboard', 'success')
+    } catch {
+      notify('Could not copy the link', 'error')
+    }
+  }
+
+  const shareResource = async () => {
+    if (typeof navigator.share === 'function') {
+      try {
+        await navigator.share({
+          title: resource.name,
+          text: resource.description,
+          url: window.location.href,
+        })
+      } catch {
+        // user closed the share sheet
+      }
+      return
+    }
+    copyLink()
+  }
+
   return (
     <div className="mx-auto max-w-7xl animate-page-in px-4 py-10 sm:px-6">
       <Link
@@ -178,6 +220,12 @@ export default function ResourcePage() {
                 </button>
                 <button onClick={() => setPickerOpen(true)} className="btn-ghost px-3 py-2">
                   <FolderPlus size={15} /> Collection
+                </button>
+                <button onClick={copyLink} className="btn-ghost px-3 py-2" aria-label="Copy link">
+                  <Clipboard size={15} /> Copy link
+                </button>
+                <button onClick={shareResource} className="btn-ghost px-3 py-2" aria-label="Share resource">
+                  <Share2 size={15} /> Share
                 </button>
               </div>
             </div>
