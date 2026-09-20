@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import TopNav from '../components/layout/TopNav.jsx'
 import Footer from '../components/layout/Footer.jsx'
 import ToastStack from '../components/ToastStack.jsx'
+import BackToTop from '../components/BackToTop.jsx'
 
 export default function AppLayout() {
   const { pathname } = useLocation()
@@ -18,6 +19,7 @@ export default function AppLayout() {
         <Outlet />
       </main>
       <Footer />
+      <BackToTop />
       <ToastStack />
     </div>
   )
