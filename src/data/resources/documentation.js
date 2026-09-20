@@ -139,4 +139,18 @@ export default [
     featured: false,
     verified: true,
   },
+  {
+    id: 'rfc-editor',
+    name: 'RFC Editor',
+    url: 'https://www.rfc-editor.org',
+    description: 'Official repository of the IETF RFC specifications that define internet protocols.',
+    category: 'documentation',
+    subcategory: 'specifications',
+    tags: ['specifications', 'rfc', 'protocols', 'ietf'],
+    pricing: 'Free',
+    platform: 'Web',
+    type: 'resource',
+    featured: false,
+    verified: true,
+  },
 ]
