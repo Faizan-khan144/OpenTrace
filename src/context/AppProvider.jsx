@@ -7,6 +7,7 @@ import { useRecent } from '../hooks/useRecent.js'
 import { useNotes } from '../hooks/useNotes.js'
 import { useSubmissions } from '../hooks/useSubmissions.js'
 import { useReports } from '../hooks/useReports.js'
+import { useDataManager } from '../hooks/useDataManager.js'
 
 export function AppProvider({ children }) {
   const themeApi = useTheme()
@@ -16,6 +17,24 @@ export function AppProvider({ children }) {
   const notesApi = useNotes()
   const submissionsApi = useSubmissions()
   const reportsApi = useReports()
+
+  const dataApi = {
+    theme: themeApi.theme,
+    setTheme: themeApi.setTheme,
+    favorites: favoritesApi.favorites,
+    setFavorites: favoritesApi.setFavorites,
+    collections: collectionsApi.collections,
+    setCollections: collectionsApi.setCollections,
+    recent: recentApi.recent,
+    setRecent: recentApi.setRecent,
+    notes: notesApi.notes,
+    setNotes: notesApi.setNotes,
+    submissions: submissionsApi.submissions,
+    setSubmissions: submissionsApi.setSubmissions,
+    reports: reportsApi.reports,
+    setReports: reportsApi.setReports,
+  }
+  const { exportData, importData, clearData } = useDataManager(dataApi)
 
   const [toasts, setToasts] = useState([])
   const timers = useRef(new Map())
@@ -55,6 +74,9 @@ export function AppProvider({ children }) {
       toasts,
       notify,
       dismissToast,
+      exportData,
+      importData,
+      clearData,
     }),
     [
       themeApi,
@@ -67,6 +89,9 @@ export function AppProvider({ children }) {
       toasts,
       notify,
       dismissToast,
+      exportData,
+      importData,
+      clearData,
     ],
   )
 

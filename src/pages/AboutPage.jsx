@@ -1,8 +1,10 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Archive,
   Bookmark,
   Compass,
+  Download,
   FileText,
   FolderOpen,
   HardDrive,
@@ -13,9 +15,12 @@ import {
   Smile,
   Star,
   Timer,
+  Trash2,
+  Upload,
 } from 'lucide-react'
 import { categories } from '../data/categories.js'
 import { resources } from '../data/resources/index.js'
+import { useApp } from '../hooks/useApp.js'
 import { LogoMark } from '../components/layout/TopNav.jsx'
 import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
@@ -70,7 +75,50 @@ const PRIVACY = [
 
 export default function AboutPage() {
   useDocumentTitle('About · OpenTrace')
+  const { exportData, importData, clearData, notify } = useApp()
   const subcategoryCount = categories.reduce((n, c) => n + c.subcategories.length, 0)
+  const fileRef = useRef(null)
+
+  const handleExport = () => {
+    const backup = exportData()
+    const blob = new Blob([JSON.stringify(backup, null, 2)], {
+      type: 'application/json',
+    })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = `opentrace-backup-${new Date().toISOString().slice(0, 10)}.json`
+    anchor.click()
+    URL.revokeObjectURL(url)
+    notify('Backup downloaded', 'success')
+  }
+
+  const handleImportFile = (event) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      const result = importData(reader.result)
+      if (result.ok) {
+        notify(
+          result.restored > 0
+            ? `Restored ${result.restored} data areas`
+            : 'Backup restored',
+          'success',
+        )
+      } else {
+        notify(result.reason, 'error')
+      }
+    }
+    reader.readAsText(file)
+    event.target.value = ''
+  }
+
+  const handleClear = () => {
+    if (!window.confirm('Clear all OpenTrace data stored in this browser?')) return
+    clearData()
+    notify('All local data cleared', 'success')
+  }
 
   return (
     <div className="mx-auto max-w-4xl animate-page-in px-4 py-12 sm:px-6">
@@ -129,6 +177,36 @@ export default function AboutPage() {
               </div>
             )
           })}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="mb-2 text-lg font-semibold text-ink">Your data</h2>
+        <p className="mb-5 max-w-2xl text-[13px] leading-relaxed text-sub">
+          Favorites, collections, notes, history, submissions, and reports live only in this
+          browser. Export a backup to move them between devices, or import one you exported
+          earlier.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <button onClick={handleExport} className="btn-ghost">
+            <Download size={15} /> Export backup
+          </button>
+          <button onClick={() => fileRef.current?.click()} className="btn-ghost">
+            <Upload size={15} /> Import backup
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="application/json,.json"
+            className="hidden"
+            onChange={handleImportFile}
+          />
+          <button
+            onClick={handleClear}
+            className="btn-ghost text-red-400 hover:text-red-300"
+          >
+            <Trash2 size={15} /> Clear all data
+          </button>
         </div>
       </section>
 
