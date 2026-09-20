@@ -47,7 +47,6 @@ export default function ResourcePage() {
     toggleFavorite,
     collections,
     toggleInCollection,
-    notes,
     saveNote,
     getNote,
     touchResource,
@@ -56,11 +55,17 @@ export default function ResourcePage() {
     submissions,
   } = useApp()
 
-  const [noteText, setNoteText] = useState('')
+  const [noteText, setNoteText] = useState(getNote(id))
+  const [prevNoteId, setPrevNoteId] = useState(id)
   const [pickerOpen, setPickerOpen] = useState(false)
   const [reportOpen, setReportOpen] = useState(false)
   const [reportType, setReportType] = useState('Broken URL')
   const [reportMessage, setReportMessage] = useState('')
+
+  if (prevNoteId !== id) {
+    setPrevNoteId(id)
+    setNoteText(getNote(id))
+  }
 
   const resource = useMemo(() => {
     const seeded = resources.find((r) => r.id === id)
@@ -75,10 +80,6 @@ export default function ResourcePage() {
       touchResource({ id: resource.id })
     }
   }, [resource, touchResource])
-
-  useEffect(() => {
-    setNoteText(getNote(id))
-  }, [id, getNote])
 
   const related = useMemo(() => {
     if (!resource) return []

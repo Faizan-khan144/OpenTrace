@@ -17,7 +17,7 @@ function ResourceLink({ resource }) {
   )
 }
 
-function SubcategoryGroup({ category, subcategory, items }) {
+function SubcategoryGroup({ subcategory, items }) {
   const [open, setOpen] = useState(true)
   return (
     <div>
@@ -99,7 +99,6 @@ function CategoryPanel({ category, defaultOpen, index }) {
               return (
                 <SubcategoryGroup
                   key={subcategory.id}
-                  category={category}
                   subcategory={subcategory}
                   items={items}
                 />

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { SlidersHorizontal, X } from 'lucide-react'
 import { resources, getByCategory } from '../data/resources/index.js'
@@ -33,13 +33,15 @@ export default function ExplorePage() {
   const urlQuery = params.get('q') || ''
 
   const [query, setQuery] = useState(urlQuery)
+  const [prevUrlQuery, setPrevUrlQuery] = useState(urlQuery)
   const [sort, setSort] = useState('relevance')
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [drawerOpen, setDrawerOpen] = useState(false)
 
-  useEffect(() => {
+  if (prevUrlQuery !== urlQuery) {
+    setPrevUrlQuery(urlQuery)
     setQuery(urlQuery)
-  }, [urlQuery])
+  }
 
   const counts = useMemo(
     () => ({

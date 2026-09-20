@@ -16,6 +16,12 @@ export default function RecentPage() {
     })
     .filter(Boolean)
 
+  const gridResources = recentResources.map((entry) =>
+    Object.fromEntries(
+      Object.entries(entry).filter(([key]) => !key.startsWith('_')),
+    ),
+  )
+
   return (
     <div className="mx-auto max-w-7xl animate-page-in px-4 py-10 sm:px-6">
       <PageHeader
@@ -60,7 +66,7 @@ export default function RecentPage() {
       )}
 
       <ResourceGrid
-        resources={recentResources.map(({ _visitedAt, ...r }) => r)}
+        resources={gridResources}
         emptyTitle="Nothing visited yet"
         emptyDescription="Open any resource in the map and it will show up here."
       />

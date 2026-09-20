@@ -1,4 +1,5 @@
-import { createContext, useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import { AppContext } from './AppContext.js'
 import { useTheme } from '../hooks/useTheme.js'
 import { useFavorites } from '../hooks/useFavorites.js'
 import { useCollections } from '../hooks/useCollections.js'
@@ -6,8 +7,6 @@ import { useRecent } from '../hooks/useRecent.js'
 import { useNotes } from '../hooks/useNotes.js'
 import { useSubmissions } from '../hooks/useSubmissions.js'
 import { useReports } from '../hooks/useReports.js'
-
-export const AppContext = createContext(null)
 
 export function AppProvider({ children }) {
   const themeApi = useTheme()

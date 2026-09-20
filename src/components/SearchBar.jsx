@@ -8,7 +8,7 @@ import { hostnameOf } from '../utils/url.js'
 import { getCategory } from '../data/categories.js'
 import { useApp } from '../hooks/useApp.js'
 
-export default function SearchBar({ autoFocus = false, size = 'default', onNavigate }) {
+export default function SearchBar({ size = 'default', onNavigate }) {
   const navigate = useNavigate()
   const { recent, touchResource } = useApp()
   const [query, setQuery] = useState('')

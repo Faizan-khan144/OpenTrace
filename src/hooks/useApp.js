@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AppContext } from '../context/AppProvider.jsx'
+import { AppContext } from '../context/AppContext.js'
 
 export function useApp() {
   const ctx = useContext(AppContext)
