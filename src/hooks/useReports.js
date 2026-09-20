@@ -24,5 +24,5 @@ export function useReports() {
     [setReports],
   )
 
-  return { reports, addReport }
+  return { reports, setReports, addReport }
 }

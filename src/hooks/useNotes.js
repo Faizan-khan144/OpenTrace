@@ -24,5 +24,5 @@ export function useNotes() {
     [setNotes],
   )
 
-  return { notes, getNote, saveNote }
+  return { notes, setNotes, getNote, saveNote }
 }

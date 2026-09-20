@@ -20,5 +20,5 @@ export function useFavorites() {
     [setFavorites],
   )
 
-  return { favorites, isFavorite, toggleFavorite }
+  return { favorites, isFavorite, toggleFavorite, setFavorites }
 }

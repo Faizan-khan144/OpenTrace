@@ -70,6 +70,7 @@ export function useCollections() {
 
   return {
     collections,
+    setCollections,
     createCollection,
     deleteCollection,
     renameCollection,

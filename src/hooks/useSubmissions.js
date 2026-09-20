@@ -32,5 +32,5 @@ export function useSubmissions() {
     [setSubmissions],
   )
 
-  return { submissions, addSubmission, removeSubmission }
+  return { submissions, setSubmissions, addSubmission, removeSubmission }
 }

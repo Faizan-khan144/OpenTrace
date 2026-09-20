@@ -24,5 +24,5 @@ export function useRecent() {
     setRecent([])
   }, [setRecent])
 
-  return { recent, touchResource, clearRecent }
+  return { recent, setRecent, touchResource, clearRecent }
 }
