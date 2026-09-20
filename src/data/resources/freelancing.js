@@ -167,4 +167,18 @@ export default [
     featured: false,
     verified: true,
   },
+  {
+    id: 'clockify',
+    name: 'Clockify',
+    url: 'https://clockify.me',
+    description: 'Free time tracker for freelancers with projects, reports, and optional client billing.',
+    category: 'freelancing',
+    subcategory: 'time-tracking',
+    tags: ['time tracking', 'timesheets', 'freelance', 'reports'],
+    pricing: 'Free tier',
+    platform: 'Web',
+    type: 'tool',
+    featured: false,
+    verified: true,
+  },
 ]
