@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { SlidersHorizontal, X } from 'lucide-react'
 import { resources, getByCategory } from '../data/resources/index.js'
@@ -11,6 +11,7 @@ import FiltersPanel from '../components/FiltersPanel.jsx'
 import ResourceGrid from '../components/ResourceGrid.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import useLocalStorage from '../hooks/useLocalStorage.js'
 
 const SORT_OPTIONS = [
   { id: 'relevance', label: 'Top match' },
@@ -29,15 +30,18 @@ const EMPTY_FILTERS = {
   featured: false,
 }
 
+const PAGE_SIZE = 24
+
 export default function ExplorePage() {
   const [params] = useSearchParams()
   const urlQuery = params.get('q') || ''
 
   const [query, setQuery] = useState(urlQuery)
   const [prevUrlQuery, setPrevUrlQuery] = useState(urlQuery)
-  const [sort, setSort] = useState('relevance')
+  const [sort, setSort] = useLocalStorage('exploreSort', 'relevance')
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
   useDocumentTitle('Explore · OpenTrace')
 
@@ -103,6 +107,12 @@ export default function ExplorePage() {
 
   const hasFilters = filtersActive(filters)
 
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE)
+  }, [query, sort, filters])
+
+  const shown = results.slice(0, visibleCount)
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <PageHeader
@@ -155,7 +165,18 @@ export default function ExplorePage() {
             </div>
           </div>
 
-          <ResourceGrid resources={results} />
+          <ResourceGrid resources={shown} />
+
+          {visibleCount < results.length && (
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}
+                className="btn-ghost px-5 py-2"
+              >
+                Show more ({results.length - visibleCount} remaining)
+              </button>
+            </div>
+          )}
 
           {query.trim() && results.length > 0 && (
             <button
