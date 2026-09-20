@@ -14,6 +14,7 @@ import ResourceGrid from '../components/ResourceGrid.jsx'
 import ResourceMap from '../components/ResourceMap.jsx'
 import CategoryIcon from '../components/CategoryIcon.jsx'
 import { useApp } from '../hooks/useApp.js'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 function PopularResources({ limit = 6 }) {
   const { favorites, recent } = useApp()
@@ -43,6 +44,8 @@ export default function HomePage() {
   const featured = getFeatured().slice(0, 6)
   const latest = resources.slice(-6).reverse()
   const subcategoryCount = categories.reduce((n, c) => n + c.subcategories.length, 0)
+
+  useDocumentTitle('OpenTrace — Find the right website for anything')
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6">

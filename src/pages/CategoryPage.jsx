@@ -8,10 +8,14 @@ import CategoryIcon from '../components/CategoryIcon.jsx'
 import Tag from '../components/Tag.jsx'
 import ResourceGrid from '../components/ResourceGrid.jsx'
 import EmptyState from '../components/EmptyState.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 export default function CategoryPage() {
   const { categoryId } = useParams()
   const category = getCategory(categoryId)
+  useDocumentTitle(
+    category ? `${category.name} resources · OpenTrace` : 'OpenTrace',
+  )
   const [query, setQuery] = useState('')
   const [activeSub, setActiveSub] = useState('')
 

@@ -17,6 +17,7 @@ import {
 import { categories } from '../data/categories.js'
 import { resources } from '../data/resources/index.js'
 import { LogoMark } from '../components/layout/TopNav.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 const FEATURES = [
   {
@@ -68,6 +69,7 @@ const PRIVACY = [
 ]
 
 export default function AboutPage() {
+  useDocumentTitle('About · OpenTrace')
   const subcategoryCount = categories.reduce((n, c) => n + c.subcategories.length, 0)
 
   return (

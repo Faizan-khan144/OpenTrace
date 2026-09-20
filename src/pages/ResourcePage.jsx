@@ -22,6 +22,7 @@ import VerifiedBadge from '../components/VerifiedBadge.jsx'
 import ResourceGrid from '../components/ResourceGrid.jsx'
 import CategoryIcon from '../components/CategoryIcon.jsx'
 import EmptyState from '../components/EmptyState.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 function Field({ label, value, mono = false }) {
   return (
@@ -74,6 +75,10 @@ export default function ResourcePage() {
     if (local) return { ...local, local: true }
     return null
   }, [id, submissions])
+
+  useDocumentTitle(
+    resource ? `${resource.name} · OpenTrace` : 'Resource not found · OpenTrace',
+  )
 
   useEffect(() => {
     if (resource && !resource.local) {

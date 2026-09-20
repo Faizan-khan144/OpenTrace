@@ -5,9 +5,11 @@ import { useApp } from '../hooks/useApp.js'
 import ResourceGrid from '../components/ResourceGrid.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import EmptyState from '../components/EmptyState.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 export default function FavoritesPage() {
   const { favorites } = useApp()
+  useDocumentTitle('Favorites · OpenTrace')
   const favoriteResources = favorites
     .map((id) => resources.find((r) => r.id === id))
     .filter(Boolean)

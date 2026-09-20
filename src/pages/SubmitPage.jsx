@@ -6,6 +6,7 @@ import { useApp } from '../hooks/useApp.js'
 import { isValidHttpUrl } from '../utils/url.js'
 import PageHeader from '../components/PageHeader.jsx'
 import Tag from '../components/Tag.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 const EMPTY_FORM = {
   name: '',
@@ -18,6 +19,7 @@ const EMPTY_FORM = {
 
 export default function SubmitPage() {
   const { addSubmission, submissions, removeSubmission, notify } = useApp()
+  useDocumentTitle('Submit a resource · OpenTrace')
   const [form, setForm] = useState(EMPTY_FORM)
   const [errors, setErrors] = useState({})
 

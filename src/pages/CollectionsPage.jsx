@@ -7,6 +7,7 @@ import ResourceGrid from '../components/ResourceGrid.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import EmptyState from '../components/EmptyState.jsx'
 import Modal from '../components/Modal.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 export default function CollectionsPage() {
   const {
@@ -16,6 +17,7 @@ export default function CollectionsPage() {
     toggleInCollection,
     notify,
   } = useApp()
+  useDocumentTitle('Collections · OpenTrace')
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [createOpen, setCreateOpen] = useState(false)

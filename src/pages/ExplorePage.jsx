@@ -10,6 +10,7 @@ import SearchBar from '../components/SearchBar.jsx'
 import FiltersPanel from '../components/FiltersPanel.jsx'
 import ResourceGrid from '../components/ResourceGrid.jsx'
 import PageHeader from '../components/PageHeader.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 const SORT_OPTIONS = [
   { id: 'relevance', label: 'Top match' },
@@ -37,6 +38,8 @@ export default function ExplorePage() {
   const [sort, setSort] = useState('relevance')
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [drawerOpen, setDrawerOpen] = useState(false)
+
+  useDocumentTitle('Explore · OpenTrace')
 
   if (prevUrlQuery !== urlQuery) {
     setPrevUrlQuery(urlQuery)

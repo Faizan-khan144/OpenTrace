@@ -1,7 +1,9 @@
 import { MapPinned } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 export default function NotFoundPage() {
+  useDocumentTitle('Page not found · OpenTrace')
   return (
     <div className="mx-auto flex max-w-3xl animate-page-in flex-col items-center px-4 py-24 text-center sm:px-6">
       <MapPinned size={40} className="text-accent-soft" strokeWidth={1.25} />

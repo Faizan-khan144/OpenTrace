@@ -5,9 +5,11 @@ import { useApp } from '../hooks/useApp.js'
 import ResourceGrid from '../components/ResourceGrid.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import EmptyState from '../components/EmptyState.jsx'
+import useDocumentTitle from '../hooks/useDocumentTitle.js'
 
 export default function RecentPage() {
   const { recent, clearRecent, notify } = useApp()
+  useDocumentTitle('Recently visited · OpenTrace')
 
   const recentResources = recent
     .map((entry) => {
