@@ -175,6 +175,7 @@ export const categories = [
       { id: 'file-conversion', name: 'File Conversion' },
       { id: 'translation', name: 'Translation' },
       { id: 'web-tools', name: 'Web Tools' },
+      { id: 'calculators', name: 'Calculators' },
       { id: 'media-utility', name: 'Media Utilities' },
       { id: 'privacy', name: 'Privacy Utilities' },
     ],

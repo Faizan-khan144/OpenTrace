@@ -195,4 +195,18 @@ export default [
     featured: false,
     verified: true,
   },
+  {
+    id: 'roof-cost-data',
+    name: 'Roof Cost Data',
+    url: 'https://roofcostdata.com/roof-replacement-cost-calculator',
+    description: 'Free roof replacement cost calculator for U.S. homeowners using roof size, material, pitch, tear-off, and location inputs.',
+    category: 'utilities',
+    subcategory: 'calculators',
+    tags: ['calculator', 'roofing', 'home improvement', 'cost planning'],
+    pricing: 'Free',
+    platform: 'Web',
+    type: 'tool',
+    featured: false,
+    verified: true,
+  },
 ]
