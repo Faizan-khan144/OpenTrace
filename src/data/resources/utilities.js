@@ -195,4 +195,18 @@ export default [
     featured: false,
     verified: true,
   },
+  {
+    id: 'stagepeek',
+    name: 'StagePeek',
+    url: 'https://stagepeek.live',
+    description: 'Interactive 3D seat-view previewer for 201 concert, theater, and stadium venues with sun-glare and acoustic simulation.',
+    category: 'utilities',
+    subcategory: 'web-tools',
+    tags: ['3d', 'concerts', 'venues', 'seat view'],
+    pricing: 'Free tier',
+    platform: 'Web',
+    type: 'tool',
+    featured: false,
+    verified: false,
+  },
 ]
